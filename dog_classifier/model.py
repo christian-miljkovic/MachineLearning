@@ -1,4 +1,5 @@
 # file to run the convolution neural net
+import tensorflow as tf
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Convolution2D
 from tensorflow.keras.layers import MaxPooling2D
@@ -50,7 +51,10 @@ test_set = test_data.flow_from_directory(
     class_mode='binary'
 )
 
-# Have to compile the model first
+# Configure model for categorical classification
+model.compile(optimizer=tf.train.RMSPropOptimizer(0.01),
+              loss=tf.keras.losses.binary_crossentropy,
+              metrics=[tf.keras.metrics.categorical_accuracy])
 
 # Fit the model to the data
 model.fit_generator(
@@ -61,4 +65,5 @@ model.fit_generator(
     validation_steps=100
 )
 
-# Save the model so that you can import it later to make predicitions on the fly for the frontend
+# Save entire model to a HDF5 file
+model.save('my_model.h5')
