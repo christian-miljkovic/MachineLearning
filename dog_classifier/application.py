@@ -3,7 +3,7 @@ from predictor import make_prediction
 from flask import render_template
 import random
 
-app = Flask(__name__, static_folder="static")
+application = Flask(__name__, static_folder="static")
 
 def getRandomImage():
     rand_int = random.randint(0, 1)
@@ -14,7 +14,7 @@ def getRandomImage():
         return "./static/data_sets/test_set/cats/cat." + str(random.randint(4001,5000))+ ".jpg"
 
 
-@app.route('/')
+@application.route('/')
 def index():
     img = getRandomImage()
     print(img)
@@ -35,4 +35,4 @@ def index():
 """
 
 if __name__ == '__main__':
-    app.run()
+    application.run()
